@@ -20,28 +20,15 @@ class Solution(object):
         :rtype: List[int]
         """
         snums = sorted(nums)
-        print snums
         n = int(math.ceil(len(snums)/2.0))
-        print "n:" + str(n)
         for i in range(0, n+1):
-            print "i:" + str(i)
-            print snums[i]
-            print(target-snums[i])
-            print ("-------")
             j = self.BinarySearch(snums, target - snums[i], 0, len(snums)-1)
             if (j is not None):
-                print("hit!")
-                print(snums[i])
-                print(snums[j])
-                print(nums)
-                return []
-
-
-
+                if (snums[i] == snums[j]):
+                    return [nums.index(snums[i]), nums.index(snums[j], nums.index(snums[i])+1)]
+                else:
+                    return [nums.index(snums[i]), nums.index(snums[j])]
 
 s = Solution()
-#nums = [8, 11, 10, 12, 7, 5, 24]
-#snums = sorted(nums)
-#print snums
-#print(s.BinarySearch(snums, 8, 0, len(nums)-1))
-print(s.twoSum([8, 11, 10, 12, 7, 5, 24], 13))
+#print(s.twoSum([8, 11, 10, 12, 7, 5, 24], 13))
+print(s.twoSum([0,4,3,0], 0))
