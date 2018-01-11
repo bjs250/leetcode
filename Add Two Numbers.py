@@ -12,36 +12,26 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        carry = 0
+        x = 0
+        n = 0
+        while l1 is not None:
+            x = x + (l1.val) * 10**n
+            l1 = l1.next
+            n = n + 1
+        y = 0
+        n = 0
+        while l2 is not None:
+            x = x + (l2.val) * 10**n
+            l2 = l2.next
+            n = n + 1
+        z = str(x + y)
+        z = z[::-1]
         root = ListNode(0)
-        oldNode = root
-        while (l1 is not None or l2 is not None) or carry == 1:
-            #print ("l1:" + str(l1.val))
-            newNode = ListNode(0)
-            oldNode.next = newNode
-            if l1 is not None:
-                x = l1.val
-                l1 = l1.next
-            else:
-                x = 0
-            if l2 is not None:
-                y = l2.val
-                l2 = l2.next
-            else:
-                y = 0
-            z = x + y
-            if z >= 10:
-                z = z - 10
-                flag = 1
-            else:
-                flag = 0
-            newNode.val = z + carry
-            if flag == 1:
-                carry = 1
-            else:
-                carry = 0
-            oldNode = oldNode.next
-        #print(root.val)
+        prev_node = root
+        for c in z:
+            current_node = ListNode(int(c))
+            prev_node.next = current_node
+            prev_node = current_node
         return root.next
 
 
@@ -56,4 +46,7 @@ l5 = ListNode(6)
 l6 = ListNode(4)
 l4.next = l5
 l5.next = l6
-print(s.addTwoNumbers(l1, l4))
+root = s.addTwoNumbers(l1, l4)
+while root is not None:
+    print root.val
+    root = root.next
