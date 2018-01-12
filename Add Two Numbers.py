@@ -12,40 +12,35 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        x = 0
-        n = 0
-        while l1 is not None:
-            x = x + (l1.val) * 10**n
-            l1 = l1.next
-            n = n + 1
-        y = 0
-        n = 0
-        while l2 is not None:
-            x = x + (l2.val) * 10**n
-            l2 = l2.next
-            n = n + 1
-        z = str(x + y)
-        z = z[::-1]
+        carry = 0
         root = ListNode(0)
-        prev_node = root
-        for c in z:
-            current_node = ListNode(int(c))
-            prev_node.next = current_node
-            prev_node = current_node
+        prevNode = root
+        while (l1 is not None) or (l2 is not None) or (carry == 1):
+            if (l1 is None):
+                x = 0
+            else:
+                x = l1.val
+                l1 = l1.next
+            if (l2 is None):
+                y = 0
+            else:
+                y = l2.val
+                l2 = l2.next
+            z = x + y + carry
+            carry = 0
+            if z >= 10:
+                z -= 10
+                carry = 1
+            l3 = ListNode(z)
+            prevNode.next = l3
+            prevNode = l3
         return root.next
 
-
 s = Solution()
-l1 = ListNode(2)
-l2 = ListNode(4)
-l3 = ListNode(3)
-l1.next = l2
-l2.next = l3
+l1 = ListNode(5)
 l4 = ListNode(5)
-l5 = ListNode(6)
-l6 = ListNode(4)
+l5 = ListNode(9)
 l4.next = l5
-l5.next = l6
 root = s.addTwoNumbers(l1, l4)
 while root is not None:
     print root.val
