@@ -5,12 +5,12 @@ class Solution(object):
         :rtype: int
         """
         d = dict()
-        for i in range(len(nums)):
-            if str(nums[i]) in d.keys():
-                d.pop(str(nums[i]))
-            else:
-                d[str(nums[i])] = nums[i]
-        return int(d.keys()[0])
+        for i in nums:
+            try:
+                d.pop(i)
+            except:
+                d[i] = 1
+        return d.popitem()[0]
 
 s = Solution()
 nums = [1, 2, 3, 4, 3, 1, 2]
