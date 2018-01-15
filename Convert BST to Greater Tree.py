@@ -8,41 +8,25 @@ class TreeNode(object):
 
 class Solution(object):
 
+    def __init__(self):
+        self.total = 0
+
     def convertBST(self, root):
         """
         :type root: TreeNode
         :rtype: TreeNode
         """
-        d = {}
         if not root:
             return None
-        self.preOrder(root, d)
-        #print d
-        self.preOrder2(root, d)
-        #print d
-        self.preOrder3(root, d)
+        self.inOrder(root)
         return root
 
-    def preOrder(self, root, d):
+    def inOrder(self, root):
         if root:
-            d[root.val] = root.val
-            self.preOrder(root.left, d)
-            self.preOrder(root.right, d)
-
-    def preOrder2(self, root, d):
-        if root:
-            #print root.val
-            for key in d:
-                if root.val > key:
-                    d[key] = d[key] + root.val
-            self.preOrder2(root.left, d)
-            self.preOrder2(root.right, d)
-
-    def preOrder3(self, root, d):
-        if root:
-            root.val = d[root.val]
-            self.preOrder3(root.left, d)
-            self.preOrder3(root.right, d)
+            self.inOrder(root.right)
+            self.total += root.val
+            root.val = self.total
+            self.inOrder(root.left)
 
 
 s = Solution()
@@ -57,4 +41,4 @@ one = TreeNode(1)
 three = TreeNode(3)
 two.left = one
 two.right = three
-s.convertBST(two)
+newroot = s.convertBST(two)
