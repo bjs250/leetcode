@@ -5,22 +5,21 @@ class Solution(object):
         :rtype: int
         """
         d = dict()
+        sp = 0
         n = 0
-        nmax = 1
-        flag = 0
         for i in range(len(s)):
-            if s[i] in d.keys():
-                flag = 1
-                n = i - d[s[i]]
-                if n > nmax:
-                    nmax = n
+            if s[i] in d:
+                sp = d[s[i]] + 1
             d[s[i]] = i
-        if s == "":
-            nmax = 0
-        if flag == 0:
-            return len(d.keys())
-        return nmax
+            if (i - sp + 1) > n:
+                n = i - sp + 1
+            print s[i], sp, n
+        return n
 
 
 s = Solution()
-print(s.lengthOfLongestSubstring("au"))
+print(s.lengthOfLongestSubstring("abba"))
+#print(s.lengthOfLongestSubstring("aa"))
+#print(s.lengthOfLongestSubstring("aab"))
+#print(s.lengthOfLongestSubstring(""))
+#print(s.lengthOfLongestSubstring("abcabcbb"))
