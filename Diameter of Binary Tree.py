@@ -14,12 +14,14 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        return self.traverse(root, self.max)
+        self.traverse(root)
+        return self.max - 1
 
-    def traverse(self, root, self.max):
+    def traverse(self, root):
         if not root:
             return 0
         else:
-            L = self.traverse(root, root.left, self.max)
-            R = self.traverse(root, root.right, self.max)
-            return max(L, R)
+            L = self.traverse(root.left)
+            R = self.traverse(root.right)
+            self.max = max(self.max, L+R+1)
+            return max(L,R)+1
