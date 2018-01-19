@@ -8,8 +8,7 @@ class TreeNode(object):
 class Solution(object):
 
     def __init__(self):
-        self.flag = 0
-        self.bool = False
+        pass
 
     def isSubtree(self, s, t):
         """
@@ -17,25 +16,26 @@ class Solution(object):
         :type t: TreeNode
         :rtype: bool
         """
-        #self.trav(s)
-        self.traverse(s, t)
-        return self.bool
+        self.code = ''
+        self.traverse(s)
+        sstring = self.code
+        #print(self.code)
+        self.code = ''
+        self.traverse(t)
+        tstring = self.code
+        #print(self.code)
+        if tstring in sstring:
+            return True
+        else:
+            return False
 
-    def traverse(self, root, sub_root):
-        if root:
-            if sub_root and (root.val == sub_root.val):
-                #print(root.val, sub_root.val)
-                self.traverse(root.left, sub_root.left)
-                self.traverse(root.right, sub_root.right)
-                #print(root.right and root.left)
-                if (root.right and root.left):
-                    self.bool = True
-                else:
-                    self.bool = False
-            else:
-                #print(root.val)
-                self.traverse(root.left, sub_root)
-                self.traverse(root.right, sub_root)
+    def traverse(self, root):
+        if not root:
+            self.code = ''.join([self.code, 'N'])
+        else:
+            self.code = ''.join([self.code, '!' + str(root.val)])
+            self.traverse(root.left)
+            self.traverse(root.right)
 
 
 s = Solution()
