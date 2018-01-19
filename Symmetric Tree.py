@@ -7,25 +7,38 @@ class TreeNode(object):
 
 class Solution(object):
 
-    def __init__(self):
-        self.bool = True
-
     def isSymmetric(self, root):
         """
         :type root: TreeNode
         :rtype: bool
         """
         if not root:
-            return False
-        self.traverse(root, root)
-        return self.bool
-
-    def traverse(self, node1, node2):
-        if node1 and node2:
-            self.traverse(node1.left, node2.right)
-            print(node1.val, node2.val)
-            if node1.val != node2.val:
-                self.bool = False
-            self.traverse(node1.right, node2.left)
+            return True
+        self.code = ''
+        self.traverseL(root.left)
+        L = self.code
+        print(L)
+        self.code = ''
+        self.traverseR(root.right)
+        R = self.code
+        print(R)
+        if L == R:
+            return True
         else:
-            self.bool = False
+            return False
+
+    def traverseL(self, root):
+        if not root:
+            self.code += str('N')
+        else:
+            self.code += '!' + str(root.val)
+            self.traverseL(root.left)
+            self.traverseL(root.right)
+
+    def traverseR(self, root):
+        if not root:
+            self.code += str('N')
+        else:
+            self.code += '!' + str(root.val)
+            self.traverseR(root.right)
+            self.traverseR(root.left)
