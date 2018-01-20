@@ -1,48 +1,50 @@
-import time
-
 class Solution(object):
     def findUnsortedSubarray(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        # t0 = time.time()
-        # Find the start of the unsorted zone
-        start_index = 0
-        end_index = 0
-        same = 0
-        flag = 0
+        fstack = list()
+        bstack = list()
+        sindex = None
+        bindex = None
+        if not nums:
+            return []
+        else:
+            fstack.append(nums[0])
+            bstack.append(nums[-1])
+        #forward
         for i in range(1, len(nums)):
-            if nums[i] < nums[i-1]:
-                start_index = i-1
-                flag = 1
-                break
-            elif (nums[i] == nums[i-1]):
-                same += 1
+            if nums[i] >= fstack[-1]:
+                fstack.append(nums[i])
             else:
-                same = 0
-        if flag == 1:
-            start_index -= same
-        # Find the end of the unsorted zone
-        same = 0
-        for j in range(1, len(nums)):
-            if (nums[len(nums)-j-1] > nums[len(nums)-j]):
-                end_index = len(nums)-j+1
+                sindex = i
+                # print(sindex)
+                while len(fstack) > 0 and nums[i] < fstack[-1]:
+                    sindex -= 1
+                    fstack.pop()
                 break
-            elif (nums[len(nums)-j-1] == nums[len(nums)-j]):
-                same += 1
+        #backward
+        for i in range(1, len(nums)):
+            if nums[len(nums)-1-i] <= bstack[-1]:
+                bstack.append(nums[len(nums)-1-i])
             else:
-                same = 0
-        # t1 = time.time()
-        if end_index > 0:
-            end_index += same
-        result = end_index-start_index
-        # print("time elapsed: " + str(t1-t0))
-        return result
+                bindex = len(nums)-1-i
+                # print(bindex)
+                while len(bstack) > 0 and nums[len(nums)-1-i] > bstack[-1]:
+                    bindex += 1
+                    bstack.pop()
+                break
+        if sindex != None and bindex != None:
+            print(sindex)
+            print(bindex)
+            return abs(bindex - sindex) + 1
+        else:
+            return 0
+
+
 
 s = Solution()
 # nums = [2, 6, 4, 8, 10, 9, 15] # 5
-#  nums = [1,3,2,2,2] # 4
-# nums = [1,1] # 0
-# nums = [2,3,3,2,4] # 3
+nums = [2, 1]
 print(s.findUnsortedSubarray(nums))
