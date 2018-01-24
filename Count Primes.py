@@ -4,20 +4,22 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        L = list()
-        p = primes()
-        for i in range(2, n+1):
-            L.append(i)
-            L[-1] = 0
-        print(L)
-        while step <
-            step = 2
-            m = 0
-            while m*step < n - 1:
-                L[m*step] = 1
-                m = m + 1
-        print(L)
+        if n == 0 or n == 1:
+            return 0
+        L = n * [1]
+        L[0] = 0
+        L[1] = 0
+        count = 0
+        for i in xrange(2,n,1):
+            if L[i] == 0:
+                continue
+            else:
+                count += 1
+                #print(i)
+                for j in xrange(i, n, i):
+                    L[j] = 0
+        return count
 
 sol = Solution()
-n = 10
+n = 8
 print(sol.countPrimes(n))
