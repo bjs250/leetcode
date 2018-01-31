@@ -4,11 +4,13 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        s = bin(n)
-        counter = 0
-        print(s)
-        for c in s:
-            print(c)
-            if c == str(1):
-                counter = counter + 1
-        return counter
+        count = 0
+        while n:
+            print(bin(n), bin(n-1), n) 
+            n = n&(n-1)
+            count += 1
+        return count
+
+sol = Solution()
+n = 100
+sol.hammingWeight(n)
